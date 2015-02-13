@@ -1,7 +1,6 @@
 // Place all the styles related to the todo_lists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 div.todo_list {
   border: 1px solid #eee;
   border-radius: 4px;
@@ -13,7 +12,7 @@ div.todo_list {
     padding: 0;
     float: left;
     list-style: none;
-    font-sizes: 0.8em;
+    fonts-size: 0.8em;
     clear: both;
 
     li {

@@ -1,10 +1,16 @@
 require 'spec_helper'
 
 describe "Deleting todo lists" do
-  let!(:todo_list) {TodoList.create(title: "groceries", description: "grocery list.")}
+  let(:user) { create(:user) }
+  let!(:todo_list) { TodoList.create(title: "Groceries", description: "Grocery list.") }
 
-  it "is successful when clicking the destoy link" do
+  before do
+    sign_in user, password: "treehouse1"
+  end
+
+  it "is successful when clicking the destroy link" do
     visit "/todo_lists"
+
     within "#todo_list_#{todo_list.id}" do
       click_link "Destroy"
     end

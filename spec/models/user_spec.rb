@@ -3,13 +3,17 @@ require 'spec_helper'
 describe User do
   let(:valid_attributes) {
     {
-      first_name:            "Jason",
-      last_name:             "Seifer",
-      email:                 "jason@teamtreehouse.com",
-      password:              "foobar",
-      password_confirmation: "foobar"
+      first_name: "Jason",
+      last_name: "Seifer",
+      email: "jason@teamtreehouse.com",
+      password: "treehouse1234",
+      password_confirmation: "treehouse1234"
     }
   }
+
+  context "relationships" do
+    it { should have_many(:todo_lists) }
+  end
 
   context "validations" do
     let(:user) { User.new(valid_attributes) }
@@ -18,7 +22,7 @@ describe User do
       User.create(valid_attributes)
     end
 
-    it "requires an email" do
+    it "requires an email" do 
       expect(user).to validate_presence_of(:email)
     end
 
@@ -31,15 +35,14 @@ describe User do
       expect(user).to validate_uniqueness_of(:email)
     end
 
-    it "requires the email address to look like an email address" do
+    it "requires the email address to look like an email" do
       user.email = "jason"
       expect(user).to_not be_valid
     end
-
+    
   end
 
-  context "#downcase_email" do
-
+  describe "#downcase_email" do
     it "makes the email attribute lower case" do
       user = User.new(valid_attributes.merge(email: "JASON@TEAMTREEHOUSE.COM"))
       expect{ user.downcase_email }.to change{ user.email }.
@@ -50,7 +53,7 @@ describe User do
     it "downcases an email before saving" do
       user = User.new(valid_attributes)
       user.email = "MIKE@TEAMTREEHOUSE.COM"
-      expect(user.save).to be_truthy
+      expect(user.save).to be_true
       expect(user.email).to eq("mike@teamtreehouse.com")
     end
   end

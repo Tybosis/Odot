@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe "Editing todo items" do
-  let!(:todo_list) { TodoList.create(title: "grocery list", description: "groceries")}
-  let!(:todo_item) { todo_list.todo_items.create(content: "Milk")}
+  let!(:todo_list) { TodoList.create(title: "Grocery list", description: "Groceries") }
+  let!(:todo_item) { todo_list.todo_items.create(content: "Milk") }  
+  let(:user) { create(:user) }
+  before { sign_in user, password: 'treehouse1' }
+
 
   it "is successful with valid content" do
     visit_todo_list(todo_list)
@@ -24,7 +27,7 @@ describe "Editing todo items" do
     fill_in "Content", with: ""
     click_button "Save"
     expect(page).to_not have_content("Saved todo list item.")
-     expect(page).to have_content("Content can't be blank")
+    expect(page).to have_content("Content can't be blank")
     todo_item.reload
     expect(todo_item.content).to eq("Milk")
   end
@@ -37,8 +40,11 @@ describe "Editing todo items" do
     fill_in "Content", with: "1"
     click_button "Save"
     expect(page).to_not have_content("Saved todo list item.")
-     expect(page).to have_content("Content is too short")
+    expect(page).to have_content("Content is too short")
     todo_item.reload
     expect(todo_item.content).to eq("Milk")
   end
+
+
+
 end
