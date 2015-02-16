@@ -2,6 +2,3 @@
 
 This is a sample todo list application built by following the rails tutorial at http://teamtreehouse.com/home
 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
